@@ -1,193 +1,269 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lynx Sport Club | Oficial</title>
-    <style>
-        /* FONDO DESVANECIDO CON TU LOGO */
-        .background-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('WhatsApp Image 2026-04-08 at 1.57.20 PM.jpeg') no-repeat center center;
-            background-size: contain;
-            opacity: 0.1; 
-            z-index: -1;
-            background-attachment: fixed;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lynx Sport Club | Oficial</title>
 
-        body {
-            margin: 0;
-            font-family: 'Arial Black', Gadget, sans-serif;
-            background-color: #0d0d0d;
-            color: white;
-            text-align: center;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Lora&display=swap" rel="stylesheet">
 
-        header {
-            background: black;
-            padding: 30px;
-            border-bottom: 3px solid white;
-        }
+<style>
+body {
+  margin:0;
+  font-family:'Lora', serif;
+  color:white;
+  position: relative;
+  z-index: 1;
+  background: transparent;
+}
 
-        h1 { margin: 0; letter-spacing: 2px; }
+/* 🔥 Fondo difuminado con efecto de zoom */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: 
+    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+    url('fondo lynx.jpeg') center/cover no-repeat;
+  
+  /* Aplicamos el desenfoque */
+  filter: blur(6px); 
+  
+  /* El zoom: un valor de 1.1 o 1.2 es ideal para que el blur 
+     no "muerda" los bordes de la pantalla */
+  transform: scale(1.2); 
+  
+  z-index: -1;
+  /* Evita que el zoom cree barras de scroll laterales */
+  pointer-events: none; 
+}
 
-        .section { padding: 50px 20px; }
+/* Aseguramos que el body no tenga desbordamiento por el zoom del fondo */
+body {
+  margin: 0;
+  font-family: 'Lora', serif;
+  color: rgb(255, 255, 255);
+  position: relative;
+  z-index: 1;
+  background: black; /* Color de respaldo */
+  overflow-x: hidden; 
+}
 
-        .players {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 25px;
-        }
+h1,h2,h3 {font-family:'Oswald', sans-serif;}
 
-        .card {
-            background: rgba(26, 26, 26, 0.9);
-            padding: 20px;
-            width: 280px;
-            border-radius: 15px;
-            border: 1px solid #333;
-            transition: 0.3s;
-        }
+.hero {
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
 
-        .card:hover { border-color: #00bcd4; transform: scale(1.02); }
+.hero h1 {font-size:4rem;}
+.hero span {color:#01ffb3;}
 
-        /* Estilo para imágenes sueltas y dentro de galerías */
-        .card img, .galeria img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-            display: none; /* Ocultas al inicio */
-            margin-bottom: 15px;
-            border: 1px solid #444;
-        }
+.btn {
+  background:#01ffb3;
+  padding:12px 25px;
+  text-decoration:none;
+  color:rgb(0, 0, 0);
+  display:inline-block;
+  margin-top:20px;
+  border-radius:5px;
+  cursor:pointer;
+}
 
-        /* Contenedor de la galería */
-        .galeria {
-            display: none; 
-        }
+section {
+  padding:60px 20px;
+  max-width:1000px;
+  margin:auto;
+}
 
-        .btn {
-            background: white;
-            color: black;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            width: 100%;
-            text-transform: uppercase;
-            transition: 0.3s;
-        }
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
 
-        .btn:hover { background: #00bcd4; color: white; }
+.card {
+  background:rgba(0,0,0,0.6);
+  padding:20px;
+  border-radius:10px;
+  backdrop-filter: blur(5px);
+}
 
-        .contact-area {
-            margin-top: 50px;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            display: inline-block;
-        }
+/* FORMULARIO */
+#inscripcion input,
+#inscripcion select,
+#inscripcion textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0 15px;
+  border-radius: 6px;
+  border: none;
+}
 
-        .whatsapp-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #25d366;
-            color: white;
-            text-decoration: none;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-size: 18px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
+.check-group {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 5px;
+  margin-bottom: 15px;
+}
 
-        .whatsapp-link:hover { background: #128c7e; transform: translateY(-3px); }
-
-    </style>
+footer {
+  text-align:center;
+  padding:20px;
+  background:rgba(0,0,0,0.8);
+}
+</style>
 </head>
+
 <body>
 
-    <div class="background-overlay"></div>
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <h1>Lynx <span>Sport Club</span></h1>
+    <p>Disciplina · Pasión · Competencia</p>
+    <a href="#equipo" class="btn">Ver categorías</a>
+    <a href="#inscripcion" class="btn">inscripcion</a>
+  </div>
+</div>
 
-    <header>
-        <h1>LYNX SPORT CLUB 🏐</h1>
-    </header>
+<!-- NOSOTROS -->
+<section>
+  <h2>Sobre Nosotros</h2>
+  <p>
+    Para que esa sección tenga un impacto más profesional y genere mayor autoridad, podemos pulir la redacción, corregir la concordancia y resaltar los logros de los entrenadores.
 
-    <div class="section">
-        <h2>NUESTRAS CATEGORÍAS</h2>
-        
-        <div class="players">
-            <div class="card">
-                <img src="u9.jpeg" id="cat1">
-                <h3>SUB 9</h3>
-                <button class="btn" onclick="mostrar('cat1')">Ver Fotos</button>
-            </div>
+Aquí tienes tres opciones según el estilo que quieras darle a Lynx Sport Club:
 
-            <div class="card">
-                <img src="u11 mixto 2.jpeg" id="cat2">
-                <h3>U11 MIXTO</h3>
-                <button class="btn" onclick="mostrar('cat2')">Ver Fotos</button>
-            </div>
+Opción 1: Profesional y Directa (Ideal para transmitir confianza)
+Sobre Nosotros
+"En Lynx Sport Club nos dedicamos a la formación integral de atletas con mentalidad ganadora. Con 3 años de trayectoria, nuestro enfoque combina el desarrollo de habilidades técnicas y físicas con el fomento de valores fundamentales. Contamos con un cuerpo técnico especializado, con acreditación Nacional I y II, respaldado por una amplia experiencia en campeonatos distritales, regionales y nacionales, garantizando una preparación de élite para cada uno de nuestros competidores."
+  </p>
+</section>
 
-            <div class="card">
-                <img src="u12 mixto.jpeg" id="cat3">
-                <h3>U12 MIXTO</h3>
-                <button class="btn" onclick="mostrar('cat3')">Ver Fotos</button>
-            </div>
+<!-- CATEGORÍAS -->
+<section id="equipo">
+  <h2>Categorías</h2>
 
-            <div class="card">
-                <div class="galeria" id="cat4">
-                    <img src="u17 damas.jpeg" style="display: block;"> 
-                    <img src="u17 (1).jpeg" style="display: block;">
-                    <img src="u17 (2).jpeg" style="display: block;">
-                </div>
-                <h3>U17 DAMAS</h3>
-                <button class="btn" onclick="mostrar('cat4')">Ver Fotos</button>
-            </div>
+  <div class="grid">
+    <div class="card"><h3>U19</h3><p> "El inicio del camino. En esta etapa priorizamos el desarrollo de la coordinación motriz, la agilidad y el juego creativo. Buscamos que los más pequeños se diviertan mientras aprenden los valores del club y descubren sus primeras habilidades con el balón en un ambiente seguro y motivador."</p></div>
+    <div class="card"><h3>U11</h3><p>Iniciación deportiva:"Transición hacia el perfeccionamiento. En esta etapa, el jugador profundiza en los fundamentos técnicos específicos y comienza a comprender los roles tácticos en el campo, construyendo una base sólida para la competencia juvenil."</p></div>
+    <div class="card"><h3>U15</h3><p>Desarrollo técnico:"Transición hacia el perfeccionamiento. En esta etapa, el jugador profundiza en los fundamentos técnicos específicos y comienza a comprender los roles tácticos en el campo, construyendo una base sólida para la competencia juvenil."</p></div>
+    <div class="card"><h3>U17</h3><p>Competencia:"Preparación para el alto nivel. Aquí el enfoque se traslada a la estrategia de juego avanzada, la resistencia física bajo presión y la mentalidad ganadora, preparando a los atletas para enfrentar desafíos en ligas y torneos oficiales."</p></div>
+    <div class="card"><h3>Mayores</h3><p>Alto rendimiento:"La máxima expresión del juego. Dirigido a deportistas que buscan excelencia y resultados. Entrenamiento de intensidad profesional, análisis táctico detallado y optimización del rendimiento físico para dominar en cada encuentro."</p></div>
+  </div>
+</section>
 
-            <div class="card">
-                <div class="galeria" id="cat5">
-                    <img src="u15 varones.jpeg" style="display: block;">
-                    <img src="varones mayores.jpeg" style="display: block;"> 
-                    <img src="u15 vaarones.jpeg" style="display: block;">
-                    <img src="u.jpeg" style="display: block;"> </div>
-                <h3>VARONES</h3>
-                <button class="btn" onclick="mostrar('cat5')">Ver Fotos</button>
-            </div>
-        </div>
+<!-- SERVICIOS -->
+<section>
+  <h2>Entrenamiento</h2>
+  <div class="grid">
+    <div class="card"><h3>🏐 Técnica y fundamentos deportivos</h3><p>"La técnica es el pilar sobre el que se construye tu talento. Nuestro entrenamiento se enfoca en perfeccionar tus movimientos básicos y avanzados para ganar control, precisión y eficiencia en cada acción. Dominar la técnica no es solo jugar mejor; es reducir el riesgo de lesiones, conservar energía y ejecutar con confianza cuando más importa.</p></div>
+    <div class="card"><h3>💪 Fortaleza y Resiliencia</h3><p>"Prepara tu cuerpo para las exigencias del alto nivel. Mediante programas personalizados de fuerza, agilidad y movilidad, optimizamos tu capacidad física para que seas más rápido, más fuerte y más resistente ante cualquier desafío."</p></div>
+    <div class="card"><h3>🏆 Desafío y Competición</h3><p>"La cancha es el examen final. Brindamos a nuestros atletas la oportunidad de competir en eventos locales y nacionales, midiendo su progreso frente a los mejores. Vive la experiencia de la competencia real y lleva tu juego al siguiente nivel."</p></div>
+  </div>
+</section>
 
-        <div class="contact-area">
-            <h3>¿QUIERES INSCRIBIRTE?</h3>
-            <p>Escríbenos directamente por WhatsApp</p>
-            <a href="https://wa.me/51958596986" class="whatsapp-link" target="_blank">
-                📱 HABLAR CON LYNX
-            </a>
-            <p style="margin-top: 15px; font-size: 14px; opacity: 0.7;">Tel: 958 596 986 | Arequipa</p>
-        </div>
-    </div>
+<!-- GALERÍA -->
+<section>
+  <h2>Galería</h2>
+  <div class="grid">
+    <img src="u17 (1).jpeg" style="width:100%; border-radius:10px;">
+    <img src="u17 varones.jpeg" style="width:100%; border-radius:10px;">
+    <img src="u9.jpeg" style="width:100%; border-radius:10px;">
+  </div>
+</section>
 
-    <script>
-        function mostrar(id) {
-            var elemento = document.getElementById(id);
-            
-            if (elemento) {
-                if (elemento.style.display === "block") {
-                    elemento.style.display = "none";
-                } else {
-                    elemento.style.display = "block";
-                }
-            } else {
-                console.error("Error: No encontré el elemento con el ID: " + id);
-            }
-        }
-    </script>
+<!-- FORMULARIO -->
+<section id="inscripcion">
+  <h2>Inscripción</h2>
+
+  <div class="card">
+    <form>
+
+      <label>Nombre</label>
+      <input type="text" id="nombre">
+
+      <label>Edad</label>
+      <input type="number" id="edad">
+
+      <label>Categoría</label>
+      <select id="categoria">
+        <option>U9</option>
+        <option>U11</option>
+        <option>U15</option>
+        <option>U17</option>
+        <option>U18</option>
+        <option>U19</option>
+        <option>Mayores</option>
+      </select>
+
+      <label>Turno</label>
+      <select id="horario">
+        <option>5:30 pm - 7:30 pm</option>
+        <option>7:30 pm - 9:00 pm</option>
+      </select>
+
+      <label>Días</label>
+      <div class="check-group">
+        <label><input type="checkbox" value="Lunes"> lunes-miercoles-viernes</label>
+              </div>
+
+      <label>Nivel</label>
+      <select id="experiencia">
+        <option>Principiante</option>
+        <option>Intermedio</option>
+        <option>Avanzado</option>
+      </select>
+
+      <button type="button" onclick="enviarFormulario()" class="btn">
+        Enviar por WhatsApp
+      </button>
+
+    </form>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section>
+  <h2>Contacto</h2>
+  <p>📞 958 596 986</p>
+  <p>📍 Arequipa, Perú</p>
+</section>
+
+<footer>
+  <p>© 2026 Lynx Sport Club</p>
+</footer>
+
+<script>
+function enviarFormulario() {
+  var nombre = document.getElementById("nombre").value;
+  var edad = document.getElementById("edad").value;
+  var categoria = document.getElementById("categoria").value;
+  var horario = document.getElementById("horario").value;
+  var experiencia = document.getElementById("experiencia").value;
+
+  var dias = [];
+  document.querySelectorAll('.check-group input:checked').forEach(el => {
+    dias.push(el.value);
+  });
+
+  var mensaje =
+  "INSCRIPCIÓN LYNX%0A" +
+  "Nombre: " + nombre + "%0A" +
+  "Edad: " + edad + "%0A" +
+  "Categoría: " + categoria + "%0A" +
+  "Turno: " + horario + "%0A" +
+  "Días: " + dias.join(", ") + "%0A" +
+  "Nivel: " + experiencia;
+
+  var url = "https://wa.me/51958596986?text=" + mensaje;
+  window.open(url, "_blank");
+}
+</script>
 
 </body>
 </html>
